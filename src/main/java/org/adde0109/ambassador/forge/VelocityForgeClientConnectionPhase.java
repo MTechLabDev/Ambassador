@@ -194,17 +194,7 @@ public enum VelocityForgeClientConnectionPhase implements ClientConnectionPhase 
     if (Ambassador.getInstance().config.isDebugMode()) {
       player.sendMessage(Component.text("Scanning modlist for client reset mods"));
     }
-    if (player.getModInfo().isPresent()) {
-      if (player.getModInfo().get().getMods().stream().anyMatch((mod -> mod.getId().equals("clientresetpacket")))) {
-        return ClientResetType.CRP;
-      } else if (Ambassador.getInstance().config.getServerSwitchCancellationTime() >= 0 &&
-              player.getModInfo().get().getMods().stream().anyMatch((mod -> mod.getId().equals("serverredirect")
-                      || mod.getId().equals("srvredirect:red")))
-              && player.getVirtualHost().isPresent()) {
-        return ClientResetType.SR;
-      }
-    }
-    return ClientResetType.NONE;
+    return ClientResetType.CRP;
   }
 
   void setResetType(ConnectedPlayer player, ClientResetType resetType) {
